@@ -2,17 +2,23 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"math"
 )
 
-// Оставляем такую же сигнатуру как в пакете time
-func Sleep(dur time.Duration) {
-	// Используем функцию After для получения канала, которые закроется через заданный интервал
-	<-time.After(dur)
+type Point struct {
+	x, y float64
+}
+
+func NewPoint(x, y float64) *Point {
+	return &Point{x: x, y: y}
+}
+
+func CalcDistance(p1, p2 *Point) float64 {
+	return math.Sqrt(math.Pow((p1.x-p2.x), 2) + math.Pow((p1.y-p2.y), 2))
 }
 
 func main() {
-	fmt.Println("Start")
-	Sleep(2 * time.Second)
-	fmt.Println("End")
+	firstPoint := NewPoint(1, 1)
+	secondPoint := NewPoint(2, 2)
+	fmt.Printf("Distance: %f\n", CalcDistance(firstPoint, secondPoint))
 }
